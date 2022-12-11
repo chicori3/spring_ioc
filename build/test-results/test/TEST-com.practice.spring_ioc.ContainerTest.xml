@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.practice.spring_ioc.ContainerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-11T11:41:24" hostname="isian-ui-MacBookAir.local" time="0.516">
+  <properties/>
+  <testcase name="applicationContext_pre_loading()" classname="com.practice.spring_ioc.ContainerTest" time="0.516"/>
+  <system-out><![CDATA[20:41:24.540 [Test worker] DEBUG org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4b6690c0
+20:41:24.862 [Test worker] DEBUG org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loaded 1 bean definitions from class path resource [bean_factory.xml]
+20:41:24.896 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'pojo'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
