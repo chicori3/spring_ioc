@@ -1,10 +1,15 @@
 package com.practice.spring_ioc;
 
-import org.springframework.context.annotation.ComponentScan;
+import com.practice.spring_ioc.bean.BookRepository;
+import com.practice.spring_ioc.bean.OrderService;
+import com.practice.spring_ioc.bean.OrderServiceV2;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = SpringIocApplication.class)
+@Slf4j
+//@ComponentScan(basePackageClasses = SpringIocApplication.class)
 public class AppConfig {
 
 //    @Bean
@@ -18,4 +23,19 @@ public class AppConfig {
 //    public BookRepository bookRepository() {
 //        return new BookRepository();
 //    }
+
+    @Bean
+    public OrderService orderService() {
+        return new OrderService(bookRepository());
+    }
+
+    @Bean
+    public OrderServiceV2 orderServiceV2() {
+        return new OrderServiceV2(bookRepository());
+    }
+
+    @Bean
+    public BookRepository bookRepository() {
+        return new BookRepository();
+    }
 }

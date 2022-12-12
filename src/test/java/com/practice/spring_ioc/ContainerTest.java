@@ -1,9 +1,7 @@
 package com.practice.spring_ioc;
 
-import com.practice.spring_ioc.bean.BookService;
-import com.practice.spring_ioc.bean.CoinService;
-import com.practice.spring_ioc.bean.MemberService;
-import com.practice.spring_ioc.bean.Pojo;
+import com.practice.spring_ioc.bean.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
@@ -16,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Slf4j
 public class ContainerTest {
 
     @Test
@@ -65,6 +64,28 @@ public class ContainerTest {
 
         assertThat(beanDefinitionNames.length).isGreaterThanOrEqualTo(2);
         assertThat(bookService.bookRepository).isNotNull();
+    }
+
+    @Test
+    public void singleton_container() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        BookService bookService1 = context.getBean("bookService", BookService.class);
+        BookService bookService2 = context.getBean("bookService", BookService.class);
+
+        assertThat(bookService1).isEqualTo(bookService2);
+    }
+
+    @Test
+    public void cglib_proxy() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        AppConfig appConfig = context.getBean("appConfig", AppConfig.class);
+        OrderService orderService = context.getBean("orderService", OrderService.class);
+        OrderServiceV2 orderServiceV2 = context.getBean("orderServiceV2", OrderServiceV2.class);
+
+        log.info("appConfig : {}", appConfig.getClass());
+        log.info("orderService.bookRepository : {}", orderService.getBookRepository());
+        log.info("orderServiceV2.bookRepository : {}", orderServiceV2.getBookRepository());
     }
 }
 
