@@ -1,11 +1,13 @@
 package com.practice.spring_ioc;
 
+import com.practice.spring_ioc.bean.BookService;
 import com.practice.spring_ioc.bean.CoinService;
 import com.practice.spring_ioc.bean.MemberService;
 import com.practice.spring_ioc.bean.Pojo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -53,6 +55,16 @@ public class ContainerTest {
 
         assertThat(beanDefinitionNames.length).isGreaterThanOrEqualTo(2);
         assertThat(coinService.coinRepository).isNotNull();
+    }
+
+    @Test
+    public void annotation_config() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        String[] beanDefinitionNames = context.getBeanDefinitionNames();
+        BookService bookService = (BookService) context.getBean("bookService");
+
+        assertThat(beanDefinitionNames.length).isGreaterThanOrEqualTo(2);
+        assertThat(bookService.bookRepository).isNotNull();
     }
 }
 
